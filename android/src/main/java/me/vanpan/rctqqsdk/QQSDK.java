@@ -503,6 +503,7 @@ public class QQSDK extends ReactContextBaseJavaModule {
      * @return
      */
     private String processImage(String image) {
+
         if (TextUtils.isEmpty(image)) {
             return "";
         }
@@ -511,8 +512,11 @@ public class QQSDK extends ReactContextBaseJavaModule {
         } else if (isBase64(image)) {
             return saveBitmapToFile(decodeBase64ToBitmap(image));
         } else if (URLUtil.isFileUrl(image) || image.startsWith("/") ){
+            /*System.out.println(URLUtil.isFileUrl(image));
             File file = new File(image);
-            return file.getAbsolutePath();
+            System.out.println(file.getAbsolutePath());
+            return file.getAbsolutePath();*/
+            return saveBitmapToFile(getBitmapFromUri(Uri.parse(image)));
         } else if(URLUtil.isContentUrl(image)) {
             return saveBitmapToFile(getBitmapFromUri(Uri.parse(image)));
         } else {
